@@ -32,3 +32,15 @@ De domeincontroller zal beschikken over 2vCPUs, en 3gb vRAM. Hierop staan de Act
 ## Clients
 
 Er zijn twee clients die opgezet zullen worden, 1 client (admin) met de nodige administratietools om de servers zonder GUI te beheren, en 1 client die een gewone gebruiker voorstelt. Beide clients krijgen een IP-adres van de DHCP-server binnen volgende range: **192.168.22.101-150** met als subnetmask **255.255.255.0** . Ze zullen beschikken over 1 vCPU en 2 gb vRAM. Ze hebben ook een virtuele harde schijf van 45gb, die dynamisch gealloceerd is.
+
+## Opzetten en Configuratie
+
+## 1. DHCP + DNS
+
+## 2. IIS
+
+## 3. Exchange
+
+## 4. AD + SQL + CA (Domeincontroller)
+
+## 5. Clients
