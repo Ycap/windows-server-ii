@@ -3,7 +3,7 @@ Write-Host "Unattended install DHCP/DNS..."
 vboxmanage unattended install WinServerDHCPDNS `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
---password=21Admin22 `
+--password=22Admin23 `
 --image-index=1 `
 --install-additions `
 --locale=be_NL `
@@ -17,7 +17,7 @@ Write-Host "Unattended install IIS..."
 vboxmanage unattended install WinServerIIS `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
---password=21Admin22 `
+--password=22Admin23 `
 --image-index=1 `
 --install-additions `
 --locale=be_NL `
@@ -31,7 +31,7 @@ Write-Host "Unattended install Exchange..."
 vboxmanage unattended install WinServerExchange `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
---password=21Admin22 `
+--password=22Admin23 `
 --image-index=1 `
 --install-additions `
 --locale=be_NL `
@@ -46,7 +46,7 @@ Write-Host "Unattended install Domain Controller..."
 vboxmanage unattended install WinServerDC `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
---password=21Admin22 `
+--password=22Admin23 `
 --image-index=1 `
 --install-additions `
 --locale=be_NL `
