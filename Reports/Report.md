@@ -43,4 +43,5 @@ Er zijn twee clients die opgezet zullen worden, 1 client (admin) met de nodige a
 
 ## 4. AD + SQL + CA (Domeincontroller)
 
+Om de domeincontroller in te stellen maken we gebruik van de GUI. Bij het installeren van de AD DS (Active Directory Domain Services) stellen we de NetBIOS-naam in als volgt: `WS2-2223-YORBEN`. Deze server wordt ook gebruikt als primaire DNS. Na het installeren van de rol, en de server te promoveren naar Domein Controller, moet de eerste netwerkadapter een statisch IP-adres krijgen. Deze configuratie gebeurt door het script uit te voeren.
 ## 5. Clients
