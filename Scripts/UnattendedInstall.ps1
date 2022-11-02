@@ -48,6 +48,8 @@ vboxmanage unattended install WinServerDC `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=1 `
+--password=21Admin22 `
+--image-index=2 `
 --install-additions `
 --locale=be_NL `
 --country=BE `
