@@ -3,7 +3,7 @@ Write-Host "##########Creating DHCP/DNS Server###########"
 vboxmanage createvm --name DHCPDNS --ostype Windows2019_64 --register --groups=/WindowsServerII
 
 #Configuratie Windows DHCP/DNS VM
-vboxmanage modifyvm DHCPDNS --memory=2048 --cpus 2 --vram=128 --nic1 intnet 
+vboxmanage modifyvm DHCPDNS --memory=1000 --cpus 2 --vram=128 --nic1 intnet 
 vboxmanage storagectl DHCPDNS --name "SATA Controller" --add sata --controller IntelAhci --bootable on 
 vboxmanage createhd --filename "D:\VirtualBox VMs\WindowsServerII\DHCPDNS\DHCPDNS.vdi" --size 30000
 vboxmanage storageattach DHCPDNS --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "D:\VirtualBox VMs\WindowsServerII\DHCPDNS\DHCPDNS.vdi" 
@@ -14,7 +14,7 @@ Write-Host "##########Creating IIS Server###########"
 vboxmanage createvm --name IIS --ostype Windows2019_64 --register --groups=/WindowsServerII
 
 #Configuratie Windows IIS VM
-vboxmanage modifyvm IIS --memory=2048 --cpus 2 --vram=128 --nic1 intnet  
+vboxmanage modifyvm IIS --memory=1000 --cpus 2 --vram=128 --nic1 intnet  
 vboxmanage storagectl IIS --name "SATA Controller" --add sata --controller IntelAhci --bootable on 
 vboxmanage createhd --filename "D:\VirtualBox VMs\WindowsServerII\IIS\IIS.vdi" --size 20000
 vboxmanage storageattach IIS --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "D:\VirtualBox VMs\WindowsServerII\IIS\IIS.vdi"
@@ -42,6 +42,17 @@ vboxmanage storagectl DC --name "SATA Controller" --add sata --controller IntelA
 
 vboxmanage createhd --filename "D:\VirtualBox VMs\WindowsServerII\DC\DC.vdi" --size 40000
 vboxmanage storageattach DC --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "D:\VirtualBox VMs\WindowsServerII\DC\DC.vdi"
+
+#Aanmaken Windows Client VM
+Write-Host "##########Creating Windows Client###########"
+vboxmanage createvm --name Client --ostype Windows10 --register --groups=/WindowsServerII
+
+#Configuratie Windows Client VM
+vboxmanage modifyvm Client --memory=2048 --cpus 1 --vram=128 --nic1 intnet  --nic2 nat
+vboxmanage storagectl Client --name "SATA Controller" --add sata --controller IntelAhci --bootable on 
+
+vboxmanage createhd --filename "D:\VirtualBox VMs\WindowsServerII\Client\Client.vdi" --size 45000
+vboxmanage storageattach DC --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "D:\VirtualBox VMs\WindowsServerII\Client\Client.vdi"
 
 
 

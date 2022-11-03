@@ -1,11 +1,9 @@
 Write-Host "Unattended install Domain Controller..."
 
-vboxmanage unattended install DC `
+vboxmanage unattended install WinServerDC `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
---image-index=1 `
---password=21Admin22 `
 --image-index=2 `
 --install-additions `
 --locale=be_NL `
