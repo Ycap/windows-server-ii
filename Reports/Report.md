@@ -15,8 +15,7 @@ Voor deze opdracht heb ik besloten mijn VM's als volgt op te stellen:
 
 De AD + SQL-server zal dienen als domeincontroller. Deze wordt dus bijgevolgd aangemaakt met een GUI. De rest van de server zullen zonder GUI (Desktop Experience).
 
-Er zijn 2 Windows Clients binnen het domein: 1 als normale user, en 1 als Admin, waarop ik de Management Tools zal installeren, om toch via een GUI de juiste instellingen te configureren.
-
+Er is 1 Windows Client binnen het domein, met 2GB RAM, 1 vCPU, en 35GB opslagruimte (dynamisch gealloceerd).
 ### Naam van het domein: WS2-2223-yorben.hogent
 
 ## DCHP + DNS
@@ -44,13 +43,44 @@ Ik liet niet toe dat de server geauthenticeerd moest worden door AD DS. Vervolge
 
 Vervolgens maakte ik via de Server Management Tools op mijn domeincontroller een DHCP Scope aan voor de clients.
 ![Aanmaken DHCP scope](img/DCHPScope.png)
+
+Om ervoor te zorgen dat deze server ook ingesteld werd als een secundaire DNS-server, heb ik via de DNS Manager op de domeincontroller de DHCP/DNS-server geconnecteerd, en vervolgens via de wizard een secundaire forward- en reverse lookup-zone aangemaakt. Vervolgens had ik een probleem: de transfer tussen de zones was mislukt. Hiervoor moest ik in de "properties" van de primaire DNS-server "zone transfers" toelaten. Dit voor zowel de forward- als de reverse lookup-zone. Wegens security-gerelateerde redenen heb ik een lijst aangemaakt met de toegestane servers.
+
+![Toelaten Zone Transfers](img/AllowZoneTransfers.png)
 ## 2. IIS
+Om de IIS-server toe te voegen aan het domein, moest ik eerst de nodige IP-instellingen veranderen. Ik gaf deze server het IP-adres `192.168.22.2/24`, met als default gateway `192.168.22.4`(IP-adres van de domeincontroller), en `192.168.22.4` en `192.168.22.1` als DNS-servers.
+![IIS-server IP-instellingen](img/IPadresIIS.png)
+
+Vervolgens voegde ik via de sconfig-utility de server toe aan het domein. Op de domeincontroller voegde ik via de Server Manager de IIS-server toe aan het Server Manager-overzicht. Via de `Add Roles & Features`-functionaliteit installeerde ik de nodige IIS-tools. 
+Wanneer ik IIS Manager wilde verbinden met de IIS-server, mislukte dit (zie screenshot).
+
+![IIS-server connecteert niet](img/IISServerConnectNiet.png)
+
+Na het raadplegen van deze site: https://www.stephenwagner.com/2019/05/14/manage-remotely-iis-on-windows-server-2019-server-core/ bleek dat er een firewall-regel ingesteld moest worden om deze communicatie toe te staan, evenals het feit dat de Web Management Service nog geinstalleerd moest worden op de IIS-server. Na dit probleem op te lossen, bleek dat de IIS-server geen remote connecties toeliet (zie foto). Ik heb dit probleem opgelost door de IIS Management Tools te installeren op de IIS-server.
+![IIS-server laat geen connectie toe](img/IISLaatGeenConnectieToe.png)
 
 ## 3. Exchange
+
+Exchange moet nog opgezet worden.
 
 ## 4. AD + SQL + CA + Routing/NAT(Domeincontroller)
 
 Om de domeincontroller in te stellen maken we gebruik van de GUI. Bij het installeren van de AD DS (Active Directory Domain Services) stellen we de NetBIOS-naam in als volgt: `WS2-2223-YORBEN`. Deze server wordt ook gebruikt als primaire DNS. Na het installeren van de rol, en de server te promoveren naar Domein Controller, moet de eerste netwerkadapter een statisch IP-adres krijgen. Deze configuratie gebeurt door het script uit te voeren. Om de functionaliteiten op andere servers te kunnen beheren van op de domeincontroller, installeer ik de nodige Server Management Tools.
+
+Bij het instellen van de primaire dns heb ik de forwarders ingesteld op die van Google (8.8.8.8) en Quad9 (9.9.9.9).
+
+Vervolgens heb ik NAT routering ingesteld op de domeincontroller. Ik doorliep het installatieproces, en vinkte bij "Role Services" het "Routing"-vakje aan. 
+![Overzicht NAT/Routing](img/NATRouting.png)
 ## 5. Client
 
-Om de client aan te maken, moet men het script `/Scripts/WinServerVMAanmaken.ps1` uitvoeren. Vervolgens, om de client aan het domein toe te laten voegen en de juiste IP-instellingen te verkrijgen, voert men het `/Scripts/Clients/ClientConfig.ps1`-script uit.
+Om de client aan te maken, moet men het script `/Scripts/WinServerVMAanmaken.ps1` uitvoeren. Vervolgens, om de client aan het domein toe te laten voegen en de juiste IP-instellingen te verkrijgen, voert men het `/Scripts/Clients/ClientConfig.ps1`-script uit. Na het toevoegen van de pc aan het domein, kan men inloggen met alle gebruikers in de Active Directory. Daarnaast krijgt het ook een lease van de DHCP-server. 
+
+Ingelogde AD-gebruiker op client:
+![Ingelogde AD-user](img/DHCPLeaseClient.png)
+De DHCP-lease van de client:
+![DHCP-lease client](img/DHCPLeaseClient.png)
+
+Een overzicht van de IP-instellingen van de client:
+![IP-instellingen client](img/InternetInstellingenClient.png)
+De Client heeft ook via de NAT/Routing rol op de domeincontroller toegang tot het internet.
+![Internettoegang client](img/InternettoegangClient.png)

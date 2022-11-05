@@ -24,7 +24,7 @@ Write-Host "##########Creating Exchange Server###########"
 vboxmanage createvm --name Exchange --ostype Windows2019_64 --register --groups=/WindowsServerII
 
 #Configuratie Windows Exchange VM
-vboxmanage modifyvm Exchange --memory=8000 --cpus 4 --vram=128 --nic1 intnet  
+vboxmanage modifyvm Exchange --memory=6132 --cpus 4 --vram=128 --nic1 intnet  
 vboxmanage storagectl Exchange --name "SATA Controller" --add sata --controller IntelAhci --bootable on
 vboxmanage storagectl Exchange --name "SATA Controller #2" --add sata --controller IntelAhci 
 
