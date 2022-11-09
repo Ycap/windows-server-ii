@@ -7,3 +7,4 @@ netsh advfirewall firewall add rule name="IIS Remote Management" dir=in action=a
 Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\WebManagement\Server -Name EnableRemoteManagement -Value 1
 
 Start-Service WMSVC
+
