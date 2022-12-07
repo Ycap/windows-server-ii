@@ -1,6 +1,6 @@
 Write-Host "Unattended install DHCP/DNS..."
 
-vboxmanage unattended install WinServerDHCPDNS `
+vboxmanage unattended install DHCPDNS `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
@@ -10,11 +10,12 @@ vboxmanage unattended install WinServerDHCPDNS `
 --country=BE `
 --time-zone=Europe/Brussels `
 --post-install-command="shutdown /r" `
---start-vm=gui
+--start-vm=gui `
+--hostname=dhcpdns.ws2-2223-yorben.hogent
 
 Write-Host "Unattended install IIS..."
 
-vboxmanage unattended install WinServerIIS `
+vboxmanage unattended install IIS `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
@@ -24,11 +25,12 @@ vboxmanage unattended install WinServerIIS `
 --country=BE `
 --time-zone=Europe/Brussels `
 --post-install-command="shutdown /r" `
---start-vm=gui
+--start-vm=gui `
+--hostname=iis.ws2-2223-yorben.hogent
 
 Write-Host "Unattended install Exchange..."
 
-vboxmanage unattended install WinServerExchange `
+vboxmanage unattended install Exchange `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
@@ -38,12 +40,13 @@ vboxmanage unattended install WinServerExchange `
 --country=BE `
 --time-zone=Europe/Brussels `
 --post-install-command="shutdown /r" `
---start-vm=gui
+--start-vm=gui `
+--hostname=exchange.ws2-2223-yorben.hogent
 
 
 Write-Host "Unattended install Domain Controller..."
 
-vboxmanage unattended install WinServerDC `
+vboxmanage unattended install DC `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
@@ -53,4 +56,20 @@ vboxmanage unattended install WinServerDC `
 --country=BE `
 --time-zone=Europe/Brussels `
 --post-install-command="shutdown /r" `
---start-vm=gui
+--start-vm=gui `
+--hostname=dc.ws2-2223-yorben.hogent
+
+Write-Host "Unattended install Client..."
+
+vboxmanage unattended install Client `
+--iso="D:\VirtualBox VMs\SW_DVD9_Win_Pro_10_20H2.10_64BIT_English_Pro_Ent_EDU_N_MLF_X22-76585.ISO" `
+--user=Client `
+--password=22Client23 `
+--image-index=2 `
+--install-additions `
+--locale=be_NL `
+--country=BE `
+--time-zone=Europe/Brussels `
+--post-install-command="shutdown /r" `
+--start-vm=gui `
+--hostname=client.ws2-2223-yorben.hogent

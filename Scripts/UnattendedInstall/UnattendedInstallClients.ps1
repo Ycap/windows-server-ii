@@ -10,4 +10,5 @@ vboxmanage unattended install DC `
 --country=BE `
 --time-zone=Europe/Brussels `
 --post-install-command="shutdown /r" `
---start-vm=gui
+--start-vm=gui `
+--hostname=client.ws2-2223-yorben.hogent
