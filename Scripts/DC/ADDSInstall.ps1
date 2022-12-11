@@ -3,6 +3,7 @@
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 
 #Maak domein aan
+Import-Module ADDSDeployment
 Install-ADDSForest -DomainName "WS2-2223-yorben.hogent" -DomainNetBiosName "WS2-2223-YORBEN" -InstallDns:$true -NoRebootCompletion:$true -Confirm
 
 #Herstart de computer om changes door te voeren
