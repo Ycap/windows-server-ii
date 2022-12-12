@@ -4,7 +4,4 @@ Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 
 #Maak domein aan
 Import-Module ADDSDeployment
-Install-ADDSForest -DomainName "WS2-2223-yorben.hogent" -DomainNetBiosName "WS2-2223-YORBEN" -InstallDns:$true -NoRebootCompletion:$true -Confirm
-
-#Herstart de computer om changes door te voeren
-Restart-Computer
+Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\Windows\NTDS" -DomainMode "WinThreshold" -DomainName "WS2-2223-yorben.hogent" -DomainNetbiosName "WS2-2223-YORBEN" -ForestMode "WinThreshold" -InstallDns:$true -LogPath "C:\Windows\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\Windows\SYSVOL" -Force:$true
