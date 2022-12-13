@@ -4,7 +4,7 @@ $username = "WS2-2223-yorben.hogent\Administrator"
 $credentials = New-Object System.Management.Automation.PSCredential($username, $password)
 
 # IP-instellingen veranderen
-New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 192.168.22.1
+New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 192.168.22.1 -DefaultGateway 192.168.22.4
 Set-NetIPAddress -InterfaceAlias Ethernet -IPAddress 192.168.22.1 -PrefixLength 24
 Start-Sleep -Seconds 3
 # DNS Server instellen

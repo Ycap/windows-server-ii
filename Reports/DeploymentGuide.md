@@ -8,7 +8,7 @@ Na deze stappen uit te voeren zou het perfect mogelijk moeten zijn om alles uit 
 
 Om al de nodige scripts naar de VM's te kopieren, voer het volgende commando uit:
 ```powershell
-VboxManage guestcontrol DCtest copyto --target-directory="C:\Users\Administrator\Desktop" "C:\Users\yorbe\Desktop\Windows Server II\scripts" --username Administrator --password 22Admin23
+VboxManage guestcontrol $naamVM copyto --target-directory="C:\Users\Administrator\Desktop" "C:\Users\yorbe\Desktop\Windows Server II\scripts" --username Administrator --password 22Admin23
 ```
 ## Hoofdstuk 1: Aanmaken + Unattended Install Virtuele Machines
 
@@ -23,5 +23,39 @@ Na al de unattended installs uit te voeren, voer je het `ADDSInstall.ps1`-script
 
 Vervolgens, aangezien de DNS-role al geinstalleerd is bij het promoveren van de server naar Domain Controller, hoeft de DNS-rol enkel nog geconfigureerd te worden. Dit wordt gedaan met het `configDNS.ps1`-script.
 
+Hierna vullen we de Active Directory op met gebruikers. Dit doen we aan de hand van het `configAD.ps1`-script.
 
 
+Om NAT routering in te schakelen op deze server via de NAT-adapter, moet men het volgende doen:
+- Ga vanuit je Server Manager naar Manage > Add Roles And Features > Role-based or Feature Installation
+- Selecteer de DC-server.
+- Installeer de Rol: Remote Access.
+- Klik op "Next" tot je bij "Role Features" zit.
+- Laat Windows Server al de nodige functies installeren.
+- Nadat de installatie succesvol afgerond is, ga vanuit je Server Manager naar Tools > Routing and Remote Access.
+- In het programma, right-click op je server (DC) en Klik op "Configure and Enable Routing and Remote Access".
+- Klik op "Network address translation (NAT)".
+- Selecteer de "Ethernet 2" netwerkadapter.
+- Rond de installatiewizard af.
+
+
+## Hoofdstuk 3: Configuratie DHCP/Secundaire DNS
+
+Om de server toe te voegen aan het domein, en de nodige netwerkinstellingen te bewerken, voer je het `generalConfig.ps1`-script uit. 
+
+Om de ju
+Vervolgens, Om de DHCP rol te installeren, moet de server eerst manueel toegevoegd worden in Server Manager. Na dit te doen, voer je het script `installDHCP.ps1` uit. LET OP: Hiervoor moet je aangemeld zijn als Domain Admin, in plaats van de lokale Administrator-account.
+
+Na het uitvoeren, zou er een scope aangemaakt moeten zijn met alle juiste opties. Vervolgens ga je naar Server Manager (op je DC) om daar de post-install configuratie-wizard te doorlopen. (Dit hoeft niet, is een bug op Windows Server)
+
+
+
+## Hoofdstuk 4: Configuratie SQL Server/IIS
+
+Om de server toe te voegen aan het domein, en de nodige netwerkinstellingen te bewerken, voer je het `generalConfig.ps1`-script uit. Vervolgens run je (in een powershell window) het `InstallSQLServer.ps1` uit. Dit installeert SQL Server, en opent de nodige poorten voor communicatie binnen het domein.
+
+Na het uitvoeren van het script, voeg je de server handmatig toe in Server Manager.
+
+## Hoofdstuk 5: Configuratie Client
+
+Na het unattended installeren van de client, voer je eerst het volgende commando uit in een Adminitrator Powershell CLI: ```Set-ExecutionPolicy -ExecutionPolicy RemoteSigned```. Daarna voer je het `ClientConfig.ps1`-script uit. Dit installeert de nodige software en voegt de client toe aan het domein.

@@ -37,7 +37,7 @@ Write-Host "##########Creating Exchange Server###########"
 vboxmanage createvm --name $naamVM --ostype Windows2019_64 --register --groups=/WindowsServerII
 
 #Configuratie Windows Exchange VM
-vboxmanage modifyvm $naamVM --memory=6132 --cpus 4 --vram=128 --nic1 intnet  
+vboxmanage modifyvm $naamVM --memory=6132 --cpus 2 --vram=128 --nic1 intnet  
 vboxmanage storagectl $naamVM --name "SATA Controller" --add sata --controller IntelAhci --bootable on
 vboxmanage storagectl $naamVM --name IDE --add ide
 vboxmanage createhd --filename $padVDI --size 40000
@@ -59,14 +59,14 @@ vboxmanage storageattach $naamVM --storagectl "SATA Controller" --port 0 --devic
 
 
 
-$naamVM = "Client"
+$naamVM = "Clienttest"
 $padVDI = "D:\VirtualBox VMs\WindowsServerII\$naamVM\$naamVM.vdi"
 #Aanmaken Windows Client VM
 Write-Host "##########Creating Windows Client###########"
-vboxmanage createvm --name $naamVM --ostype Windows10 --register --groups=/WindowsServerII
+vboxmanage createvm --name $naamVM --ostype Windows10_64 --register --groups=/WindowsServerIITest
 
 #Configuratie Windows Client VM
-vboxmanage modifyvm $naamVM --memory=2048 --cpus 1 --vram=128 --nic1 intnet  --nic2 nat
+vboxmanage modifyvm $naamVM --memory=2048 --cpus 1 --vram=128 --nic1 intnet
 vboxmanage storagectl $naamVM --name "SATA Controller" --add sata --controller IntelAhci --bootable on 
 
 vboxmanage createhd --filename $padVDI --size 45000

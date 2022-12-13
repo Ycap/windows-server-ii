@@ -1,6 +1,6 @@
 Write-Host "Unattended install IIS..."
 
-vboxmanage unattended install IIS `
+vboxmanage unattended install IIStest `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `

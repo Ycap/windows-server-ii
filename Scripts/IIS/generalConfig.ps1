@@ -1,4 +1,4 @@
-powershell
+
 # Variables
 $password = "22Admin23" | ConvertTo-SecureString -asPlainText -Force
 $username = "WS2-2223-yorben.hogent\Administrator"
