@@ -43,8 +43,8 @@ Om NAT routering in te schakelen op deze server via de NAT-adapter, moet men het
 
 Om de server toe te voegen aan het domein, en de nodige netwerkinstellingen te bewerken, voer je het `generalConfig.ps1`-script uit. 
 
-Om de ju
-Vervolgens, Om de DHCP rol te installeren, moet de server eerst manueel toegevoegd worden in Server Manager. Na dit te doen, voer je het script `installDHCP.ps1` uit. LET OP: Hiervoor moet je aangemeld zijn als Domain Admin, in plaats van de lokale Administrator-account.
+
+Vervolgens, Om de DHCP rol te installeren, moet de server eerst manueel toegevoegd worden in Server Manager. Na dit te doen, voer je het script `installDHCP.ps1` uit.
 
 Na het uitvoeren, zou er een scope aangemaakt moeten zijn met alle juiste opties. Vervolgens ga je naar Server Manager (op je DC) om daar de post-install configuratie-wizard te doorlopen. (Dit hoeft niet, is een bug op Windows Server)
 
@@ -69,6 +69,7 @@ Vervolgens
 
 ## Hoofdstuk 5: Configuratie Exchange
 Om de juiste IP-instellingen te verkrijgen en de server toe te voegen aan het domein, voert men het `generalConfig.ps1`-script uit. 
+Om de Exchange ISO toe te voegen aan je server, voer het volgende commando uit op je host:
 ```powershell
 vboxmanage storageattach Exchange --storagectl IDE --port 0 --device 0 --type dvddrive --medium "D:\VirtualBox VMs\mul_exchange_server_2019_cumulative_update_12_x64_dvd_52bf3153.iso"
 ```
@@ -78,6 +79,35 @@ Hierna voer je het `ExchangeInstall.ps1`-script uit. Tijdens dit script kunnen e
 
 LET OP: Bij het uitvoeren van het `ExchangeInstall.ps1`-script moet je ingelogd zijn als Domain Admin (WS2-2223-yorben.hogent\Administrator). Daarnaast is het mogelijk dat je de server na de eerste keer runnen moet herstarten. Doe dit, en run vervolgens het script opnieuw.
 
+Hierna zou Exchange succesvol geinstalleerd moeten zijn op je server!
+
+Na het herstarten van de server voeg je deze handmatig doe via de Server Manager op de DC.
+
+Om Exchange te configureren, ga je naar de volgende url: `https://exchange.ws2-2223-yorben.hogent/ecp/`.
+
+Daar kan je inloggen met je gegevens:
+```
+Domain\User Name:
+WS2-2223-yorben.hogent\Administrator
+Password:
+22Admin23
+```
+
+Doorloop het setup proces. Vervolgens kan je een mailbox aanmaken voor alle AD-gebruikers (zie screenshot).
+![Mailbox AD-user](img/MailboxADuser.png)
+
+Hierna moet je ook nog ervoor zorgen dat de juiste DNS-servers gebruikt worden (zie screenshot).
+
+![DNS Exchange](img/DNSServersExchange.png)
+
+Ga naar de volgende link om mails te versturen: `https://exchange.ws2-2223-yorben.hogent/owa/`
+Vanaf nu is het mogelijk om mails naar AD-users te versturen (indien ze een mailbox hebben).
+
+![Verzende Mail](img/VerstuurdeMail.png)
+
+LET OP: Indien de mails niet volledig doorkomen, is het mogelijk dat sommige Exchange-services gestopt zijn. Hiervoor ga je naar Server Manager (op de DC) > Dashboard > All Servers > Services. Dan selecteer je al de services, right-click, en druk je op 'Start Services'.
+
+Je kan de exchange-server ook toevoegen in IIS Manager op de DC. Dit doe je door naar `Connections` > `Connect to Server...` te gaan en daar de juiste gegevens in te vullen (servernaam: `exchange.ws2-2223-yorben.hogent`, Gebruikersnaam: `ws2-2223-yorben.hogent\Administrator`, Paswoord: `22Admin23`). Vervolgens wordt er gevraagd om bepaalde software te installeren, doe dit. De server zou moeten toegevoegd worden aan IIS Manager. 
 ## Hoofdstuk 6: Configuratie Client
 
 Na het unattended installeren van de client, voer je eerst het volgende commando uit in een Adminitrator Powershell CLI: ```Set-ExecutionPolicy -ExecutionPolicy RemoteSigned```. Daarna voer je het `ClientConfig.ps1`-script uit. Dit installeert de nodige software en voegt de client toe aan het domein.
