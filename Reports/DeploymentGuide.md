@@ -52,10 +52,32 @@ Na het uitvoeren, zou er een scope aangemaakt moeten zijn met alle juiste opties
 
 ## Hoofdstuk 4: Configuratie SQL Server/IIS
 
-Om de server toe te voegen aan het domein, en de nodige netwerkinstellingen te bewerken, voer je het `generalConfig.ps1`-script uit. Vervolgens run je (in een powershell window) het `InstallSQLServer.ps1` uit. Dit installeert SQL Server, en opent de nodige poorten voor communicatie binnen het domein.
+Om de server toe te voegen aan het domein, en de nodige netwerkinstellingen te bewerken, voer je het `generalConfig.ps1`-script uit. Hierna vervang je de Windows Server-ISO door de SQL-server ISO in Virtualbox. 
+Dit kan gedaan worden door op je host het volgende commando uit te voeren:
+```powershell
+vboxmanage storageattach IIS --storagectl IDE --port 0 --device 0 --type dvddrive --medium "D:\VirtualBox VMs\en_sql_server_2019_standard_x64_dvd_814b57aa.iso"
+```
+Het pad kan vervangen worden door het gepaste pad op uw systeem.
+
+Vervolgens run je op de VM (in een powershell window) het `InstallSQLServer.ps1` uit. Dit installeert SQL Server, en opent de nodige poorten voor communicatie binnen het domein.
 
 Na het uitvoeren van het script, voeg je de server handmatig toe in Server Manager.
 
-## Hoofdstuk 5: Configuratie Client
+Hierna zou de Client connectie moeten kunnen maken met de SQL-server.
+
+Vervolgens
+
+## Hoofdstuk 5: Configuratie Exchange
+Om de juiste IP-instellingen te verkrijgen en de server toe te voegen aan het domein, voert men het `generalConfig.ps1`-script uit. 
+```powershell
+vboxmanage storageattach Exchange --storagectl IDE --port 0 --device 0 --type dvddrive --medium "D:\VirtualBox VMs\mul_exchange_server_2019_cumulative_update_12_x64_dvd_52bf3153.iso"
+```
+Hierna voer je het `ExchangeInstall.ps1`-script uit. Tijdens dit script kunnen er verschillende venster verschijnen. Om de URL Rewrite-tool te installeren, moet je deze opzoeken in de installatiewizard (zie foto).
+
+![URL Rewrite](img/URLRewrite.png)
+
+LET OP: Bij het uitvoeren van het `ExchangeInstall.ps1`-script moet je ingelogd zijn als Domain Admin (WS2-2223-yorben.hogent\Administrator). Daarnaast is het mogelijk dat je de server na de eerste keer runnen moet herstarten. Doe dit, en run vervolgens het script opnieuw.
+
+## Hoofdstuk 6: Configuratie Client
 
 Na het unattended installeren van de client, voer je eerst het volgende commando uit in een Adminitrator Powershell CLI: ```Set-ExecutionPolicy -ExecutionPolicy RemoteSigned```. Daarna voer je het `ClientConfig.ps1`-script uit. Dit installeert de nodige software en voegt de client toe aan het domein.

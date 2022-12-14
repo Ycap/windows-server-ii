@@ -1,4 +1,4 @@
-$naamVM = "DHCPDNStest"
+$naamVM = "DHCPDNS"
 Write-Host "Unattended install DHCP/DNS..."
 
 vboxmanage unattended install $naamVM `

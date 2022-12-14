@@ -1,6 +1,7 @@
+$naamVM = "Exchange"
 Write-Host "Unattended install Exchange..."
 
-vboxmanage unattended install Exchange `
+vboxmanage unattended install $naamVM `
 --iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
 --user=Administrator `
 --password=22Admin23 `
