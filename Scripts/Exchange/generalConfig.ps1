@@ -3,7 +3,7 @@
 $password = "22Admin23" | ConvertTo-SecureString -asPlainText -Force
 $username = "WS2-2223-yorben.hogent\Administrator"
 $credentials = New-Object System.Management.Automation.PSCredential($username, $password)
-[string]$padRegistry = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+$padRegistry = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 
 # IP-instellingen veranderen
 New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 192.168.22.3 -DefaultGateway 192.168.22.4

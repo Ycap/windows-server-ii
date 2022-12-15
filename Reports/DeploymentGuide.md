@@ -21,6 +21,8 @@ Vervolgens zijn er twee manieren om de virtuele machines unattended te laten ins
 
 Na al de unattended installs uit te voeren, voer je het `ADDSInstall.ps1`-script uit in de `DC`-directory. Bij het eerste keer uitvoeren van een script op de VM is het mogelijk dat je "a" moet tikken om de ExecutionPolicy te veranderen. Na het uitvoeren van het script moet je het Administrator paswoord invoeren (`22Admin23`).
 
+Daarna run je het `generalConfig.ps1`-script uit. Dit verandert bepaalde instellingen zoals het uitzetten van IE Enhanced Security, en automatisch inloggen als Domain Admin.
+
 Vervolgens, aangezien de DNS-role al geinstalleerd is bij het promoveren van de server naar Domain Controller, hoeft de DNS-rol enkel nog geconfigureerd te worden. Dit wordt gedaan met het `configDNS.ps1`-script.
 
 Hierna vullen we de Active Directory op met gebruikers. Dit doen we aan de hand van het `configAD.ps1`-script.
@@ -48,6 +50,9 @@ Vervolgens, Om de DHCP rol te installeren, moet de server eerst manueel toegevoe
 
 Na het uitvoeren, zou er een scope aangemaakt moeten zijn met alle juiste opties. Vervolgens ga je naar Server Manager (op je DC) om daar de post-install configuratie-wizard te doorlopen. (Dit hoeft niet, is een bug op Windows Server)
 
+Om de secundaire DNS-server te configureren, run je het `configDNS.ps1`-script. Indien de zone transfer niet volledig lukt, enable je de zone tranfer-functionaliteit op de primaire DNS (op de DC). Dit doe je door te right-clicken op de primaire zone > Zone Transfers > Allow Zone Transfers: Only to the following servers. Hier voeg je de secundaire dns-server toe door het IP-adres in te geven na op de "Edit"-knop te klikken. Run hierna het script nog eens.
+
+![Zone transfers](img/ZoneTransfers.png)
 
 
 ## Hoofdstuk 4: Configuratie SQL Server/IIS
