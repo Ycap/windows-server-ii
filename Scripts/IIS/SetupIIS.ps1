@@ -1,6 +1,6 @@
-powershell
 
-# TODO: default app pool stoppen, default app stoppen, index.html aanmaken, inhoud wijzigen met Set-Content, bindings aanmaken, 
+
+# TODO: default app pool stoppen, default app stoppen, index.html aanmaken, inhoud wijzigen met Set-Content, bindings aanmaken, nieuwe app pool aanmaken
 
 #Pool directory aanmaken
 New-Item C:\inetpub\yorbenPool -ItemType Directory
@@ -18,4 +18,9 @@ Hello World!
 </html>
 "
 Stop-WebAppPool -Name "DefaultAppPool"
-New-IISSite -Name 'siteYorben' -PhysicalPath 'C:\inetpub\yorbenPool' -BindingInformation "*:443:"
+Stop-IISSite -Name "Default Web Site"
+New-IISSite -Name 'siteYorben' -PhysicalPath 'C:\inetpub\yorbenPool' -BindingInformation "192.168.22.2:80:"
+New-WebAppPool -Name "PoolYorben" 
+Set-ItemProperty IIS:\Sites\siteYorben -Name applicationpool -Value PoolYorben
+Start-WebAppPool -Name "PoolYorben"
+Start-IISSite -Name 'siteYorben'

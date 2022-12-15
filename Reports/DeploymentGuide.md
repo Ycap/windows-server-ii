@@ -65,7 +65,11 @@ Na het uitvoeren van het script, voeg je de server handmatig toe in Server Manag
 
 Hierna zou de Client connectie moeten kunnen maken met de SQL-server.
 
-Vervolgens
+Vervolgens run je het `InstallIIS.ps1`-script op de server, waarna je via IIS manager connectie zou moeten kunnen maken met de server van op de DC.
+
+Daarna run je het `SetupIIS.ps1`-script op de server.
+
+LET OP: Voordat je het script runt, zet je IIS manager uit op je DC en voer het `powershell`-commando uit op je IIS-server. Windows geeft hier soms problemen mee, aangezien je bepaalde files aanpast die gelocked kunnen worden door IIS manager. Voor meer info, zie: https://stackoverflow.com/questions/44566284/cannot-commit-configuration-changes-because-the-file-has-changed-on-disk
 
 ## Hoofdstuk 5: Configuratie Exchange
 Om de juiste IP-instellingen te verkrijgen en de server toe te voegen aan het domein, voert men het `generalConfig.ps1`-script uit. 
