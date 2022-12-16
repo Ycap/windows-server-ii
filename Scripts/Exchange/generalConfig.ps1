@@ -15,6 +15,8 @@ Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses ("192.168.2
 Add-Computer -DomainName WS2-2223-yorben.hogent -DomainCredential $credentials  -Force -WarningAction SilentlyContinue
 
 # Automatisch inloggen als Domain Admin
-Set-ItemProperty $padRegistry "AutoAdminLogon" -Value "1" -type String 
-Set-ItemProperty $padRegistry "DefaultUsername" -Value "Administrator@WS2-2223-yorben.hogent" -type String 
-Set-ItemProperty $padRegistry "DefaultPassword" -Value "22Admin23" -type String
+Set-ItemProperty $padRegistry "AutoAdminLogon" -Value "1"
+Set-ItemProperty $padRegistry "DefaultUsername" -Value "Administrator@WS2-2223-yorben.hogent"
+Set-ItemProperty $padRegistry "DefaultPassword" -Value "22Admin23"
+Start-Sleep -Seconds 3
+shutdown /r

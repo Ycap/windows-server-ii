@@ -15,3 +15,5 @@ Start-Sleep -Seconds 3
 Set-ItemProperty $padRegistry "AutoAdminLogon" -Value "1"  
 Set-ItemProperty $padRegistry "DefaultUsername" -Value "Administrator@WS2-2223-yorben.hogent" 
 Set-ItemProperty $padRegistry "DefaultPassword" -Value "22Admin23" 
+Start-Sleep -Seconds 3
+shutdown /r
