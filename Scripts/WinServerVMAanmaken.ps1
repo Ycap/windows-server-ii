@@ -63,7 +63,7 @@ $naamVM = "Client"
 $padVDI = "D:\VirtualBox VMs\WindowsServerII\$naamVM\$naamVM.vdi"
 #Aanmaken Windows Client VM
 Write-Host "##########Creating Windows Client###########"
-vboxmanage createvm --name $naamVM --ostype Windows10_64 --register --groups=/WindowsServerIITest
+vboxmanage createvm --name $naamVM --ostype Windows10_64 --register --groups=/WindowsServerII
 
 #Configuratie Windows Client VM
 vboxmanage modifyvm $naamVM --memory=2048 --cpus 1 --vram=128 --nic1 intnet
