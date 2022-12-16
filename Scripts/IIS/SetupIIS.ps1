@@ -1,7 +1,3 @@
-
-
-# TODO: default app pool stoppen, default app stoppen, index.html aanmaken, inhoud wijzigen met Set-Content, bindings aanmaken, nieuwe app pool aanmaken
-
 #Pool directory aanmaken
 New-Item C:\inetpub\yorbenPool -ItemType Directory
 #Pool index.html aanmaken
@@ -10,7 +6,7 @@ Set-Content -Path "C:\inetpub\yorbenPool\index.html" -Value "
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Basic Web Page</title>
+        <title>Testpagina Windows Server 2022 EP1</title>
     </head>
     <body>
 Hello World!

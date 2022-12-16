@@ -22,6 +22,7 @@ Set-Location D:\
 .\setup.exe /PrepareSchema /IAcceptExchangeServerLicenseTerms_DiagnosticDataOn
 .\setup.exe /PrepareAD /OrganizationName:”WS2-2223-yorben” /IAcceptExchangeServerLicenseTerms_DiagnosticDataOn
 .\setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOn /PrepareAllDomains 
+#Installeer Exchange
 .\setup.exe /Mode:Install /Role:Mailbox /IAcceptExchangeServerLicenseTerms_DiagnosticDataOn
 Start-Sleep -Seconds 5
 shutdown /r

@@ -10,11 +10,20 @@ Om al de nodige scripts naar de VM's te kopieren, voer het volgende commando uit
 ```powershell
 VboxManage guestcontrol $naamVM copyto --target-directory="C:\Users\Administrator\Desktop" "C:\Users\yorbe\Desktop\Windows Server II\scripts" --username Administrator --password 22Admin23
 ```
+
+### Gebruikers en paswoorden:
+
+Alle lokale admins en de Domain Administrator gebruiken het volgende wachtwoord: `22Admin23`
+
+Alle AD users gebruiken het volgende wachtwoord: `P@ssw0rd`
+
 ## Hoofdstuk 1: Aanmaken + Unattended Install Virtuele Machines
 
 Om de VM's aan te maken in Virtualbox, voer je het volgende script uit in de `scripts`-directory: `WinServerVMAanmaken.ps1`. Dit zorgt ervoor dat de VM's in dezelfde groep worden aangemaakt in Virtualbox. Het is mogelijk om via de variabelen (bovenaan het script gedefinieerd) de paden voor de VDI's en nodige ISO's te veranderen.
 
 Vervolgens zijn er twee manieren om de virtuele machines unattended te laten installeren: Alles in een keer, of elk apart. Afhankelijk van de sterkte van je PC kies je de gepaste optie. Al de VM's kunnen unattended geinstalleerd worden na de gepaste scripts uit te voeren in de `scripts\UnattendedInstall\`-directory.
+
+DISCLAIMER: In deze guide wordt er over scripts gesproken, waarvan meerdere met dezelfde naam. Afhankelijk van welke server je configureert, moet je in de gepaste directory-naam zitten, zodat je het gepaste script uitvoert (De namen van de directories komen overeen met de servers waarop je de scripts uitvoert).
 
 
 ## Hoofdstuk 2: Configuratie DC
@@ -39,6 +48,8 @@ Om NAT routering in te schakelen op deze server via de NAT-adapter, moet men het
 - Klik op "Network address translation (NAT)".
 - Selecteer de "Ethernet 2" netwerkadapter.
 - Rond de installatiewizard af.
+
+Om de CA te installeren, run je het `CAInstall.ps1`-script. Dit installeert de Certificate Authority op de server. Verder dan CA installeren ben ik jammer genoeg niet geraakt.
 
 
 ## Hoofdstuk 3: Configuratie DHCP/Secundaire DNS
@@ -114,7 +125,7 @@ Vanaf nu is het mogelijk om mails naar AD-users te versturen (indien ze een mail
 
 ![Verzende Mail](img/VerstuurdeMail.png)
 
-LET OP: Indien de mails niet volledig doorkomen, is het mogelijk dat sommige Exchange-services gestopt zijn. Hiervoor ga je naar Server Manager (op de DC) > Dashboard > All Servers > Services. Dan selecteer je al de services, right-click, en druk je op 'Start Services'.
+LET OP: Indien de mails niet volledig doorkomen of de owa of ecp niet opent, is het mogelijk dat sommige Exchange-services gestopt zijn. Hiervoor ga je naar Server Manager (op de DC) > Dashboard > All Servers > Services. Dan selecteer je al de services, right-click, en druk je op 'Start Services'. Dit zou ook opgelost kunnen worden door het `Get-Service *Exchange* | Start-Service`-commando uit te voeren op de Exchange-server. Gelieve te wachten tot het commando volledig afgelopen is.
 
 Je kan de exchange-server ook toevoegen in IIS Manager op de DC. Dit doe je door naar `Connections` > `Connect to Server...` te gaan en daar de juiste gegevens in te vullen (servernaam: `exchange.ws2-2223-yorben.hogent`, Gebruikersnaam: `ws2-2223-yorben.hogent\Administrator`, Paswoord: `22Admin23`). Vervolgens wordt er gevraagd om bepaalde software te installeren, doe dit. De server zou moeten toegevoegd worden aan IIS Manager. 
 ## Hoofdstuk 6: Configuratie Client

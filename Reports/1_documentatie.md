@@ -122,3 +122,14 @@ Een overzicht van de IP-instellingen van de client:
 De Client heeft ook via de NAT/Routing rol op de domeincontroller toegang tot het internet.
 
 ![Internettoegang client](img/InternettoegangClient.png) 
+
+
+# Conclusie
+
+## Status project
+
+Alles kon opgezet worden, behalve de CA. Het installeren van de CA is gelukt, maar om deze te configureren had ik wat meer tijd nodig.
+
+## Reflectie
+
+Ik vond dit een zeer leerrijke opdracht. Ik heb veel geleerd over Windows Server en Powershell, en vond het wel leuk om deze omgeving (grotendeels) te automatiseren. Ik had wel liever meer RAM-geheugen in mijn PC gehad, aangezien het soms zoeken was om de nodige systeem-resources te kunnen geven aan de nodige VM's (bv. Exchange). Alles wat ik hier geleerd heb zal ik zeker en vast kunnen gebruiken naar mijn professionele werkleven toe. Ik heb zeer veel tijd verloren aan het proberen configureren van de CA, en aan het configureren van SQL server, aangezien niet al het verkeer doorgelaten werd wegens de firewall. 

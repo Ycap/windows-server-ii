@@ -1,8 +1,10 @@
 $naamVM = "IIS"
+#Dit pad kan veranderd worden
+$padISO = "D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso"
 Write-Host "Unattended install IIS..."
 
 vboxmanage unattended install $naamVM `
---iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
+--iso=$padISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=1 `

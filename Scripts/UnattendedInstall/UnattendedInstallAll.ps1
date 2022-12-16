@@ -1,7 +1,10 @@
+#Deze variabelen kunnen aangepast worden naar behoeven
+$padClientISO = "D:\VirtualBox VMs\SW_DVD9_Win_Pro_10_20H2.10_64BIT_English_Pro_Ent_EDU_N_MLF_X22-76585.ISO"
+$padServerISO = "D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso"
 Write-Host "Unattended install DHCP/DNS..."
 
 vboxmanage unattended install DHCPDNS `
---iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
+--iso=$padServerISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=1 `
@@ -16,7 +19,7 @@ vboxmanage unattended install DHCPDNS `
 Write-Host "Unattended install IIS..."
 
 vboxmanage unattended install IIS `
---iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
+--iso=$padServerISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=1 `
@@ -31,7 +34,7 @@ vboxmanage unattended install IIS `
 Write-Host "Unattended install Exchange..."
 
 vboxmanage unattended install Exchange `
---iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
+--iso=$padServerISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=1 `
@@ -47,7 +50,7 @@ vboxmanage unattended install Exchange `
 Write-Host "Unattended install Domain Controller..."
 
 vboxmanage unattended install DC `
---iso="D:\VirtualBox VMs\en_windows_server_2019_x64_dvd_4cb967d8.iso" `
+--iso=$padServerISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=2 `
@@ -62,7 +65,7 @@ vboxmanage unattended install DC `
 Write-Host "Unattended install Client..."
 
 vboxmanage unattended install Client `
---iso="D:\VirtualBox VMs\SW_DVD9_Win_Pro_10_20H2.10_64BIT_English_Pro_Ent_EDU_N_MLF_X22-76585.ISO" `
+--iso=$padClientISO `
 --user=Administrator `
 --password=22Admin23 `
 --image-index=2 `
